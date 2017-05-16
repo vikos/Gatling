@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "QuickResponder Extension",
+  "short_name": "QuickResponder",
+  "version": "0.0.1",
+  "description": "Autocomplete tool for textare inputs.",
+
+  "author": "Vikos vikos@vikos.me",
+  "permissions": ["tabs"],
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*", "file://*"],
+      "all_frames": true,
+      "js": [
+        "jquery-3.2.1.min.js",
+        "jquery/jquery-ui.js",
+        "controller.js"
+      ]
+    }
+  ]
+}
