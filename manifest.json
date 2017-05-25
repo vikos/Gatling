@@ -15,7 +15,8 @@
         "jquery-3.2.1.min.js",
         "jquery/jquery-ui.js",
         "controller.js"
-      ]
+      ],
+      "css": [ "jquery/jquery-ui.css" ]
     }
   ]
 }
