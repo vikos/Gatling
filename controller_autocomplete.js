@@ -16,8 +16,13 @@ function isTextarea() {
 function RenderAutoComplete() {
     $(document.activeElement).autocomplete({
         source: function( request, callback ) {
+            var textArea = this.element[0]
+
             // Having the last word before the current cursor position in the textArea
-            var searchTerm = request.term.substring(0,document.activeElement.selectionEnd).split(" ").pop();
+            var pos = textArea.selectionStart;
+            var value = textArea.value;
+
+            var searchTerm = value.substring(0,pos).split(/\W+/).pop() + value.substring(pos).split(/\W+/).shift();
 
             console.log("source", searchTerm);
 
@@ -29,6 +34,8 @@ function RenderAutoComplete() {
             console.log("Apply template" + ui.item.label);
 
             applyTemplate(e.target, ui.item.label);
+
+            $( this ).autocomplete( "destroy" );
         },
         focus: function (event, ui) {
 
@@ -47,28 +54,18 @@ function RenderAutoComplete() {
 
 function applyTemplate(textArea, templateName) {
     var pos = textArea.selectionStart;
-    var value = textArea.value;
 
-    if (pos == 0) {
-        // Cursor is on the beginning of the text (prepending)
-        return renderTemplate(templateName) + textArea.value
-    } else if (pos == value.length) {
-        // Cursor it on the end on the text (appending)
-        return value + renderTemplate(templateName)
-    }
+    var prefixEndsPos = pos - textArea.value.substring(0,pos).split(/\W+/).pop().length;
+    var postfixStartsPos = pos + textArea.value.substring(pos).split(/\W+/).shift().length;
 
-    // Cursor is in the middle of the value (inserting)
-    var pre = value.substring(0,pos).split(" ");
-    var post = value.substring(pos).split(" ");
+    var insertMe = renderTemplate(templateName);
 
-    var prevChar = textArea.value.substring(pos-1, pos);
+    textArea.value = textArea.value.substring(0,prefixEndsPos) + insertMe + textArea.value.substring( postfixStartsPos);
 
-    if (pre[pre.length -1] !== " ") { // cursor is standing on a word
-	pre.pop(); //replace the last word before the cursor
-    } // @fixme: Contniue here!! 
-	
 
-    return value = pre.join(" ") + renderTemplate(templateName) + pos.join(" ")
+    pos = prefixEndsPos + insertMe.length;
+    textArea.focus();
+    textArea.setSelectionRange(pos,pos);
 }
 
 function renderTemplate(templateName) {
