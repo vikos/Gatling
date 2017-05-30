@@ -12,9 +12,8 @@
       "matches": ["https://*/*", "http://*/*", "file://*"],
       "all_frames": true,
       "js": [
-        "jquery-3.2.1.min.js",
+        "jquery/jquery-3.2.1.min.js",
         "jquery/jquery-ui.js",
-        "jquery.textcomplete.min.js",
         "controller_autocomplete.js"
       ],
       "css": [ "jquery/jquery-ui.css" ]

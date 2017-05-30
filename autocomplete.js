@@ -16,7 +16,7 @@ function isTextarea() {
 function RenderAutoComplete() {
     $(document.activeElement).autocomplete({
         source: function( request, callback ) {
-            var textArea = this.element[0]
+            var textArea = this.element[0];
 
             // Having the last word before the current cursor position in the textArea
             var pos = textArea.selectionStart;
@@ -26,7 +26,7 @@ function RenderAutoComplete() {
 
             console.log("source", searchTerm);
 
-            callback(getTemplates(searchTerm))
+            callback(getTemplates(searchTerm));
         },
         select: function(e, ui) {
             e.preventDefault();
