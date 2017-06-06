@@ -14,9 +14,14 @@
       "js": [
         "jquery/jquery-3.2.1.min.js",
         "jquery/jquery-ui.js",
-        "controller_autocomplete.js"
+        "autocomplete.js"
       ],
       "css": [ "jquery/jquery-ui.css" ]
     }
-  ]
+  ],
+  "options_page": "options.html"
+  //"options_ui": {
+    //"page": "options.html",
+    //"chrome_style": true
+  //}
 }
